@@ -1,0 +1,2685 @@
+//************************************************************
+// AD9361 R2 Auto Generated Initialization Script:  This script was
+// generated using the AD9361 Customer software Version 2.1.1
+//************************************************************
+// Profile: Custom
+// REFCLK_IN: 40.000 MHz
+
+RESET_FPGA	
+RESET_DUT	
+BlockWrite	2,6	// Set ADI FPGA SPI to 20Mhz
+SPIWrite	3DF,01
+ReadPartNumber
+SPIWrite	295,14	// Power up XO path (Default)
+SPIWrite	2A6,0E	// Enable Master Bias
+SPIWrite	2A8,0E	// Set Bandgap Trim
+REFCLK_Scale	40.000000,1,2	// Sets local variables in script engine, user can ignore
+SPIWrite	292,08	// Set DCXO Coarse Tune[5:0]
+SPIWrite	293,80	// Set DCXO Fine Tune [12:5]
+SPIWrite	294,00	// Set DCXO Fine Tune [4:0]
+SPIWrite	2AB,07	// Set RF PLL reflclk scale to REFCLK * 2
+SPIWrite	2AC,FF	// Set RF PLL reflclk scale to REFCLK * 2
+SPIWrite	009,07	// Enable Clocks
+
+WAIT	20	// waits 20 ms
+//************************************************************
+// Set BBPLL Frequency: 1179.648000
+//************************************************************
+SPIWrite	045,00	// Set BBPLL reflclk scale to REFCLK /1
+SPIWrite	046,04	// Set BBPLL Loop Filter Charge Pump current
+SPIWrite	048,E8	// Set BBPLL Loop Filter C1, R1
+SPIWrite	049,5B	// Set BBPLL Loop Filter R2, C2, C1
+SPIWrite	04A,35	// Set BBPLL Loop Filter C3,R2
+SPIWrite	04B,E0	// Allow calibration to occur and set cal count to 1024 for max accuracy
+SPIWrite	04E,10	// Set calibration clock to REFCLK/4 for more accuracy
+SPIWrite	043,31	// BBPLL Freq Word (Fractional[7:0])
+SPIWrite	042,A8	// BBPLL Freq Word (Fractional[15:8])
+SPIWrite	041,0F	// BBPLL Freq Word (Fractional[23:16])
+SPIWrite	044,1D	// BBPLL Freq Word (Integer[7:0])
+SPIWrite	03F,05	// Start BBPLL Calibration
+SPIWrite	03F,01	// Clear BBPLL start calibration bit
+SPIWrite	04C,86	// Increase BBPLL KV and phase margin
+SPIWrite	04D,01	// Increase BBPLL KV and phase margin
+SPIWrite	04D,05	// Increase BBPLL KV and phase margin
+
+WAIT_CALDONE	BBPLL,2000	// Wait for BBPLL to lock, Timeout 2sec, Max BBPLL VCO Cal Time: 345.600 us (Done when 0x05E[7]==1)
+SPIRead	05E	// Check BBPLL locked status  (0x05E[7]==1 is locked)
+SPIWrite	002,DE	// Setup Tx Digital Filters/ Channels
+SPIWrite	003,DE	// Setup Rx Digital Filters/ Channels
+SPIWrite	004,03	// Select Rx input pin(A,B,C)/ Tx out pin (A,B)
+SPIWrite	00A,05	// Set BBPLL post divide rate
+
+//************************************************************
+// Program Tx FIR: C:\Program Files (x86)\Analog Devices\AD9361R2
+// Evaluation Software\DigitalFilters\128tapFilter.ftr
+//************************************************************
+SPIWrite	065,FA	// Enable clock to Tx FIR Filter and set Filter gain Setting 
+WAIT	1	// waits 1 ms
+SPIWrite	060,00	// Write FIR coefficient address
+SPIWrite	061,01	// Write FIR coefficient data[7:0]
+SPIWrite	062,00	// Write FIR coefficient data[15:8]
+SPIWrite	065,FE	// Set Write EN to push data into FIR filter register map
+SPIWrite	064,00	// Write to Read only register to delay ~1us
+SPIWrite	064,00	// Write to Read only register to delay ~1us
+SPIWrite	060,01
+SPIWrite	061,F1
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,02
+SPIWrite	061,CF
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,03
+SPIWrite	061,C0
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,04
+SPIWrite	061,E8
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,05
+SPIWrite	061,20
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,06
+SPIWrite	061,1A
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,07
+SPIWrite	061,E3
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,08
+SPIWrite	061,E1
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,09
+SPIWrite	061,1F
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,0A
+SPIWrite	061,28
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,0B
+SPIWrite	061,DF
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,0C
+SPIWrite	061,CC
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,0D
+SPIWrite	061,24
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,0E
+SPIWrite	061,43
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,0F
+SPIWrite	061,DB
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,10
+SPIWrite	061,AC
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,11
+SPIWrite	061,26
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,12
+SPIWrite	061,68
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,13
+SPIWrite	061,DB
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,14
+SPIWrite	061,80
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,15
+SPIWrite	061,22
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,16
+SPIWrite	061,9A
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,17
+SPIWrite	061,E2
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,18
+SPIWrite	061,47
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,19
+SPIWrite	061,17
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,1A
+SPIWrite	061,DB
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,1B
+SPIWrite	061,F3
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,1C
+SPIWrite	061,FF
+SPIWrite	062,FE
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,1D
+SPIWrite	061,FF
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,1E
+SPIWrite	061,2B
+SPIWrite	062,01
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,1F
+SPIWrite	061,13
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,20
+SPIWrite	061,A5
+SPIWrite	062,FE
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,21
+SPIWrite	061,D7
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,22
+SPIWrite	061,90
+SPIWrite	062,01
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,23
+SPIWrite	061,46
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,24
+SPIWrite	061,35
+SPIWrite	062,FE
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,25
+SPIWrite	061,97
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,26
+SPIWrite	061,0E
+SPIWrite	062,02
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,27
+SPIWrite	061,95
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,28
+SPIWrite	061,A7
+SPIWrite	062,FD
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,29
+SPIWrite	061,36
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,2A
+SPIWrite	061,AE
+SPIWrite	062,02
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,2B
+SPIWrite	061,0D
+SPIWrite	062,01
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,2C
+SPIWrite	061,F0
+SPIWrite	062,FC
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,2D
+SPIWrite	061,A1
+SPIWrite	062,FE
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,2E
+SPIWrite	061,83
+SPIWrite	062,03
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,2F
+SPIWrite	061,C6
+SPIWrite	062,01
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,30
+SPIWrite	061,F3
+SPIWrite	062,FB
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,31
+SPIWrite	061,B6
+SPIWrite	062,FD
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,32
+SPIWrite	061,B7
+SPIWrite	062,04
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,33
+SPIWrite	061,F8
+SPIWrite	062,02
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,34
+SPIWrite	061,6D
+SPIWrite	062,FA
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,35
+SPIWrite	061,1A
+SPIWrite	062,FC
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,36
+SPIWrite	061,BE
+SPIWrite	062,06
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,37
+SPIWrite	061,41
+SPIWrite	062,05
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,38
+SPIWrite	061,87
+SPIWrite	062,F7
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,39
+SPIWrite	061,98
+SPIWrite	062,F8
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,3A
+SPIWrite	061,60
+SPIWrite	062,0B
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,3B
+SPIWrite	061,6D
+SPIWrite	062,0B
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,3C
+SPIWrite	061,88
+SPIWrite	062,EE
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,3D
+SPIWrite	061,40
+SPIWrite	062,EA
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,3E
+SPIWrite	061,86
+SPIWrite	062,27
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,3F
+SPIWrite	061,09
+SPIWrite	062,72
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,40
+SPIWrite	061,09
+SPIWrite	062,72
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,41
+SPIWrite	061,86
+SPIWrite	062,27
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,42
+SPIWrite	061,40
+SPIWrite	062,EA
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,43
+SPIWrite	061,88
+SPIWrite	062,EE
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,44
+SPIWrite	061,6D
+SPIWrite	062,0B
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,45
+SPIWrite	061,60
+SPIWrite	062,0B
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,46
+SPIWrite	061,98
+SPIWrite	062,F8
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,47
+SPIWrite	061,87
+SPIWrite	062,F7
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,48
+SPIWrite	061,41
+SPIWrite	062,05
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,49
+SPIWrite	061,BE
+SPIWrite	062,06
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,4A
+SPIWrite	061,1A
+SPIWrite	062,FC
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,4B
+SPIWrite	061,6D
+SPIWrite	062,FA
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,4C
+SPIWrite	061,F8
+SPIWrite	062,02
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,4D
+SPIWrite	061,B7
+SPIWrite	062,04
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,4E
+SPIWrite	061,B6
+SPIWrite	062,FD
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,4F
+SPIWrite	061,F3
+SPIWrite	062,FB
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,50
+SPIWrite	061,C6
+SPIWrite	062,01
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,51
+SPIWrite	061,83
+SPIWrite	062,03
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,52
+SPIWrite	061,A1
+SPIWrite	062,FE
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,53
+SPIWrite	061,F0
+SPIWrite	062,FC
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,54
+SPIWrite	061,0D
+SPIWrite	062,01
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,55
+SPIWrite	061,AE
+SPIWrite	062,02
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,56
+SPIWrite	061,36
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,57
+SPIWrite	061,A7
+SPIWrite	062,FD
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,58
+SPIWrite	061,95
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,59
+SPIWrite	061,0E
+SPIWrite	062,02
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,5A
+SPIWrite	061,97
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,5B
+SPIWrite	061,35
+SPIWrite	062,FE
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,5C
+SPIWrite	061,46
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,5D
+SPIWrite	061,90
+SPIWrite	062,01
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,5E
+SPIWrite	061,D7
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,5F
+SPIWrite	061,A5
+SPIWrite	062,FE
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,60
+SPIWrite	061,13
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,61
+SPIWrite	061,2B
+SPIWrite	062,01
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,62
+SPIWrite	061,FF
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,63
+SPIWrite	061,FF
+SPIWrite	062,FE
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,64
+SPIWrite	061,F3
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,65
+SPIWrite	061,DB
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,66
+SPIWrite	061,17
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,67
+SPIWrite	061,47
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,68
+SPIWrite	061,E2
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,69
+SPIWrite	061,9A
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,6A
+SPIWrite	061,22
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,6B
+SPIWrite	061,80
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,6C
+SPIWrite	061,DB
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,6D
+SPIWrite	061,68
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,6E
+SPIWrite	061,26
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,6F
+SPIWrite	061,AC
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,70
+SPIWrite	061,DB
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,71
+SPIWrite	061,43
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,72
+SPIWrite	061,24
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,73
+SPIWrite	061,CC
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,74
+SPIWrite	061,DF
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,75
+SPIWrite	061,28
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,76
+SPIWrite	061,1F
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,77
+SPIWrite	061,E1
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,78
+SPIWrite	061,E3
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,79
+SPIWrite	061,1A
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,7A
+SPIWrite	061,20
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,7B
+SPIWrite	061,E8
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,7C
+SPIWrite	061,C0
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,7D
+SPIWrite	061,CF
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,7E
+SPIWrite	061,F1
+SPIWrite	062,FF
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	060,7F
+SPIWrite	061,01
+SPIWrite	062,00
+SPIWrite	065,FE
+SPIWrite	064,00
+SPIWrite	064,00
+SPIWrite	065,F8	// Disable clock to Tx Filter
+
+//************************************************************
+// Program Rx FIR: C:\Program Files (x86)\Analog Devices\AD9361R2
+// Evaluation Software\DigitalFilters\128tapFilter.ftr
+//************************************************************
+SPIWrite	0F5,FA	// Enable clock to Rx FIR Filter 
+SPIWrite	0F6,02	// Write Filter Gain setting
+WAIT	1	// waits 1 ms
+SPIWrite	0F0,00	// Write FIR coefficient address
+SPIWrite	0F1,01	// Write FIR coefficient data[7:0]
+SPIWrite	0F2,00	// Write FIR coefficient data[15:8]
+SPIWrite	0F5,FE	// Set Write EN to push data into FIR filter register map
+SPIWrite	0F4,00	// Dummy Write to Read only register to delay ~1us
+SPIWrite	0F4,00	// Dummy Write to Read only register to delay ~1us
+SPIWrite	0F0,01
+SPIWrite	0F1,F1
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,02
+SPIWrite	0F1,CF
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,03
+SPIWrite	0F1,C0
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,04
+SPIWrite	0F1,E8
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,05
+SPIWrite	0F1,20
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,06
+SPIWrite	0F1,1A
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,07
+SPIWrite	0F1,E3
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,08
+SPIWrite	0F1,E1
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,09
+SPIWrite	0F1,1F
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,0A
+SPIWrite	0F1,28
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,0B
+SPIWrite	0F1,DF
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,0C
+SPIWrite	0F1,CC
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,0D
+SPIWrite	0F1,24
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,0E
+SPIWrite	0F1,43
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,0F
+SPIWrite	0F1,DB
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,10
+SPIWrite	0F1,AC
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,11
+SPIWrite	0F1,26
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,12
+SPIWrite	0F1,68
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,13
+SPIWrite	0F1,DB
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,14
+SPIWrite	0F1,80
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,15
+SPIWrite	0F1,22
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,16
+SPIWrite	0F1,9A
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,17
+SPIWrite	0F1,E2
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,18
+SPIWrite	0F1,47
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,19
+SPIWrite	0F1,17
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,1A
+SPIWrite	0F1,DB
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,1B
+SPIWrite	0F1,F3
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,1C
+SPIWrite	0F1,FF
+SPIWrite	0F2,FE
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,1D
+SPIWrite	0F1,FF
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,1E
+SPIWrite	0F1,2B
+SPIWrite	0F2,01
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,1F
+SPIWrite	0F1,13
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,20
+SPIWrite	0F1,A5
+SPIWrite	0F2,FE
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,21
+SPIWrite	0F1,D7
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,22
+SPIWrite	0F1,90
+SPIWrite	0F2,01
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,23
+SPIWrite	0F1,46
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,24
+SPIWrite	0F1,35
+SPIWrite	0F2,FE
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,25
+SPIWrite	0F1,97
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,26
+SPIWrite	0F1,0E
+SPIWrite	0F2,02
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,27
+SPIWrite	0F1,95
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,28
+SPIWrite	0F1,A7
+SPIWrite	0F2,FD
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,29
+SPIWrite	0F1,36
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,2A
+SPIWrite	0F1,AE
+SPIWrite	0F2,02
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,2B
+SPIWrite	0F1,0D
+SPIWrite	0F2,01
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,2C
+SPIWrite	0F1,F0
+SPIWrite	0F2,FC
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,2D
+SPIWrite	0F1,A1
+SPIWrite	0F2,FE
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,2E
+SPIWrite	0F1,83
+SPIWrite	0F2,03
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,2F
+SPIWrite	0F1,C6
+SPIWrite	0F2,01
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,30
+SPIWrite	0F1,F3
+SPIWrite	0F2,FB
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,31
+SPIWrite	0F1,B6
+SPIWrite	0F2,FD
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,32
+SPIWrite	0F1,B7
+SPIWrite	0F2,04
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,33
+SPIWrite	0F1,F8
+SPIWrite	0F2,02
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,34
+SPIWrite	0F1,6D
+SPIWrite	0F2,FA
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,35
+SPIWrite	0F1,1A
+SPIWrite	0F2,FC
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,36
+SPIWrite	0F1,BE
+SPIWrite	0F2,06
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,37
+SPIWrite	0F1,41
+SPIWrite	0F2,05
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,38
+SPIWrite	0F1,87
+SPIWrite	0F2,F7
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,39
+SPIWrite	0F1,98
+SPIWrite	0F2,F8
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,3A
+SPIWrite	0F1,60
+SPIWrite	0F2,0B
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,3B
+SPIWrite	0F1,6D
+SPIWrite	0F2,0B
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,3C
+SPIWrite	0F1,88
+SPIWrite	0F2,EE
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,3D
+SPIWrite	0F1,40
+SPIWrite	0F2,EA
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,3E
+SPIWrite	0F1,86
+SPIWrite	0F2,27
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,3F
+SPIWrite	0F1,09
+SPIWrite	0F2,72
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,40
+SPIWrite	0F1,09
+SPIWrite	0F2,72
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,41
+SPIWrite	0F1,86
+SPIWrite	0F2,27
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,42
+SPIWrite	0F1,40
+SPIWrite	0F2,EA
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,43
+SPIWrite	0F1,88
+SPIWrite	0F2,EE
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,44
+SPIWrite	0F1,6D
+SPIWrite	0F2,0B
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,45
+SPIWrite	0F1,60
+SPIWrite	0F2,0B
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,46
+SPIWrite	0F1,98
+SPIWrite	0F2,F8
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,47
+SPIWrite	0F1,87
+SPIWrite	0F2,F7
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,48
+SPIWrite	0F1,41
+SPIWrite	0F2,05
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,49
+SPIWrite	0F1,BE
+SPIWrite	0F2,06
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,4A
+SPIWrite	0F1,1A
+SPIWrite	0F2,FC
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,4B
+SPIWrite	0F1,6D
+SPIWrite	0F2,FA
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,4C
+SPIWrite	0F1,F8
+SPIWrite	0F2,02
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,4D
+SPIWrite	0F1,B7
+SPIWrite	0F2,04
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,4E
+SPIWrite	0F1,B6
+SPIWrite	0F2,FD
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,4F
+SPIWrite	0F1,F3
+SPIWrite	0F2,FB
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,50
+SPIWrite	0F1,C6
+SPIWrite	0F2,01
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,51
+SPIWrite	0F1,83
+SPIWrite	0F2,03
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,52
+SPIWrite	0F1,A1
+SPIWrite	0F2,FE
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,53
+SPIWrite	0F1,F0
+SPIWrite	0F2,FC
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,54
+SPIWrite	0F1,0D
+SPIWrite	0F2,01
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,55
+SPIWrite	0F1,AE
+SPIWrite	0F2,02
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,56
+SPIWrite	0F1,36
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,57
+SPIWrite	0F1,A7
+SPIWrite	0F2,FD
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,58
+SPIWrite	0F1,95
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,59
+SPIWrite	0F1,0E
+SPIWrite	0F2,02
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,5A
+SPIWrite	0F1,97
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,5B
+SPIWrite	0F1,35
+SPIWrite	0F2,FE
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,5C
+SPIWrite	0F1,46
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,5D
+SPIWrite	0F1,90
+SPIWrite	0F2,01
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,5E
+SPIWrite	0F1,D7
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,5F
+SPIWrite	0F1,A5
+SPIWrite	0F2,FE
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,60
+SPIWrite	0F1,13
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,61
+SPIWrite	0F1,2B
+SPIWrite	0F2,01
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,62
+SPIWrite	0F1,FF
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,63
+SPIWrite	0F1,FF
+SPIWrite	0F2,FE
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,64
+SPIWrite	0F1,F3
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,65
+SPIWrite	0F1,DB
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,66
+SPIWrite	0F1,17
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,67
+SPIWrite	0F1,47
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,68
+SPIWrite	0F1,E2
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,69
+SPIWrite	0F1,9A
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,6A
+SPIWrite	0F1,22
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,6B
+SPIWrite	0F1,80
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,6C
+SPIWrite	0F1,DB
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,6D
+SPIWrite	0F1,68
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,6E
+SPIWrite	0F1,26
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,6F
+SPIWrite	0F1,AC
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,70
+SPIWrite	0F1,DB
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,71
+SPIWrite	0F1,43
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,72
+SPIWrite	0F1,24
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,73
+SPIWrite	0F1,CC
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,74
+SPIWrite	0F1,DF
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,75
+SPIWrite	0F1,28
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,76
+SPIWrite	0F1,1F
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,77
+SPIWrite	0F1,E1
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,78
+SPIWrite	0F1,E3
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,79
+SPIWrite	0F1,1A
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,7A
+SPIWrite	0F1,20
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,7B
+SPIWrite	0F1,E8
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,7C
+SPIWrite	0F1,C0
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,7D
+SPIWrite	0F1,CF
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,7E
+SPIWrite	0F1,F1
+SPIWrite	0F2,FF
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F0,7F
+SPIWrite	0F1,01
+SPIWrite	0F2,00
+SPIWrite	0F5,FE
+SPIWrite	0F4,00
+SPIWrite	0F4,00
+SPIWrite	0F5,F8	// Disable clock to Rx Filter
+
+//************************************************************
+// Setup the Parallel Port (Digital Data Interface)
+//************************************************************
+SPIWrite	010,C9	// PPORT Config 1
+SPIWrite	011,00	// PPORT Config 2
+SPIWrite	012,10	// PPORT Config 3
+SPIWrite	006,04	// PPORT Rx Delay (adjusts Tco Dataclk->Data)
+SPIWrite	007,04	// PPORT TX Delay (adjusts setup/hold FBCLK->Data)
+
+SPIWrite	03C,24	// LVDS Settings
+SPIWrite	03D,00	// LVDS polarity invert
+SPIWrite	03E,00	// LVDS polarity invert
+//************************************************************
+// Setup AuxDAC
+//************************************************************
+SPIWrite	018,00	// AuxDAC1 Word[9:2]
+SPIWrite	019,00	// AuxDAC2 Word[9:2]
+SPIWrite	01A,00	// AuxDAC1 Config and Word[1:0]
+SPIWrite	01B,00	// AuxDAC2 Config and Word[1:0]
+SPIWrite	023,FF	// AuxDAC Manaul/Auto Control
+SPIWrite	026,00	// AuxDAC Manual Select Bit/GPO Manual Select
+SPIWrite	030,00	// AuxDAC1 Rx Delay
+SPIWrite	031,00	// AuxDAC1 Tx Delay
+SPIWrite	032,00	// AuxDAC2 Rx Delay
+SPIWrite	033,00	// AuxDAC2 Tx Delay
+
+//************************************************************
+// Setup AuxADC
+//************************************************************
+SPIWrite	00B,00	// Temp Sensor Setup (Offset)
+SPIWrite	00C,00	// Temp Sensor Setup (Temp Window)
+SPIWrite	00D,03	// Temp Sensor Setup (Periodic Measure)
+SPIWrite	00F,04	// Temp Sensor Setup (Decimation)
+SPIWrite	01C,10	// AuxADC Setup (Clock Div)
+SPIWrite	01D,01	// AuxADC Setup (Decimation/Enable)
+
+//************************************************************
+// Setup Control Outs
+//************************************************************
+SPIWrite	035,00	// Ctrl Out index
+SPIWrite	036,FF	// Ctrl Out [7:0] output enable
+
+//************************************************************
+// Setup GPO
+//************************************************************
+SPIWrite	03A,27	// Set number of REFCLK cycles for 1us delay timer
+SPIWrite	020,00	// GPO Auto Enable Setup in RX and TX
+SPIWrite	027,00	// GPO Manual and GPO auto value in ALERT
+SPIWrite	028,00	// GPO_0 RX Delay
+SPIWrite	029,00	// GPO_1 RX Delay
+SPIWrite	02A,00	// GPO_2 RX Delay
+SPIWrite	02B,00	// GPO_3 RX Delay
+SPIWrite	02C,00	// GPO_0 TX Delay
+SPIWrite	02D,00	// GPO_1 TX Delay
+SPIWrite	02E,00	// GPO_2 TX Delay
+SPIWrite	02F,00	// GPO_3 TX Delay
+
+SPIWrite	261,00	// Set Rx LO Power mode
+SPIWrite	2A1,00	// Set Tx LO Power mode
+SPIWrite	248,0B	// Enable Rx VCO LDO
+SPIWrite	288,0B	// Enable Tx VCO LDO
+SPIWrite	246,02	// Set VCO Power down TCF bits
+SPIWrite	286,02	// Set VCO Power down TCF bits
+SPIWrite	249,8E	// Set VCO cal length
+SPIWrite	289,8E	// Set VCO cal length
+SPIWrite	23B,80	// Enable Rx VCO cal
+SPIWrite	27B,80	// Enable Tx VCO cal
+SPIWrite	243,0D	// Set Rx prescaler bias
+SPIWrite	283,0D	// Set Tx prescaler bias
+SPIWrite	23D,00	// Clear Half VCO cal clock setting
+SPIWrite	27D,00	// Clear Half VCO cal clock setting
+
+SPIWrite	015,04	// Set Dual Synth mode bit
+SPIWrite	014,05	// Set Force ALERT State bit
+SPIWrite	013,01	// Set ENSM FDD mode
+WAIT	1	// waits 1 ms
+SPIWrite	23D,04	// Start RX CP cal
+WAIT_CALDONE	RXCP,100	// Wait for CP cal to complete, Max RXCP Cal time: 460.800 (us)(Done when 0x244[7]==1)
+SPIWrite	27D,04	// Start TX CP cal
+WAIT_CALDONE	TXCP,100	// Wait for CP cal to complete, Max TXCP Cal time: 460.800 (us)(Done when 0x284[7]==1)
+//************************************************************
+// FDD RX/TX Synth Frequency: 93.500000,800.000000 MHz
+//************************************************************
+//************************************************************
+// Setup Synthesizer
+//************************************************************
+SPIWrite	23A,4A	// Set VCO Output level[3:0]
+SPIWrite	239,C0	// Set Init ALC Value[3:0] and VCO Varactor[3:0]
+SPIWrite	242,04	// Set VCO Bias Tcf[1:0] and VCO Bias Ref[2:0]
+SPIWrite	238,78	// Set VCO Cal Offset[3:0]
+SPIWrite	245,00	// Set VCO Cal Ref Tcf[2:0]
+SPIWrite	251,08	// Set VCO Varactor Reference[3:0]
+SPIWrite	250,70	// Set VCO Varactor Ref Tcf[2:0] and VCO Varactor Offset[3:0]
+SPIWrite	23B,8A	// Set Synth Loop Filter charge pump current (Icp)
+SPIWrite	23E,D4	// Set Synth Loop Filter C2 and C1
+SPIWrite	23F,DF	// Set Synth Loop Filter  R1 and C3
+SPIWrite	240,09	// Set Synth Loop Filter R3
+
+//************************************************************
+// Setup Synthesizer
+//************************************************************
+SPIWrite	27A,4A	// Set VCO Output level[3:0]
+SPIWrite	279,C3	// Set Init ALC Value[3:0] and VCO Varactor[3:0]
+SPIWrite	282,1F	// Set VCO Bias Tcf[1:0] and VCO Bias Ref[2:0]
+SPIWrite	278,78	// Set VCO Cal Offset[3:0]
+SPIWrite	285,00	// Set VCO Cal Ref Tcf[2:0]
+SPIWrite	291,0C	// Set VCO Varactor Reference[3:0]
+SPIWrite	290,70	// Set VCO Varactor Ref Tcf[2:0] and VCO Varactor Offset[3:0]
+SPIWrite	27B,92	// Set Synth Loop Filter charge pump current (Icp)
+SPIWrite	27E,D4	// Set Synth Loop Filter C2 and C1
+SPIWrite	27F,DF	// Set Synth Loop Filter  R1 and C3
+SPIWrite	280,09	// Set Synth Loop Filter R3
+
+SPIWrite	233,C4	// Write Rx Synth Fractional Freq Word[7:0]
+SPIWrite	234,CC	// Write Rx Synth Fractional Freq Word[15:8]
+SPIWrite	235,4C	// Write Rx Synth Fractional Freq Word[22:16]
+SPIWrite	232,00	// Write Rx Synth Integer Freq Word[10:8]
+SPIWrite	231,95	// Write Rx Synth Integer Freq Word[7:0]
+SPIWrite	005,26	// Set LO divider setting
+SPIWrite	273,00	// Write Tx Synth Fractional Freq Word[7:0]
+SPIWrite	274,00	// Write Tx Synth Fractional Freq Word[15:8]
+SPIWrite	275,00	// Write Tx Synth Fractional Freq Word[22:16]
+SPIWrite	272,00	// Write Tx Synth Integer Freq Word[10:8]
+SPIWrite	271,50	// Write Tx Synth Integer Freq Word[7:0] (starts VCO cal)
+SPIWrite	005,26	// Set LO divider setting
+SPIRead	247	// Check RX RF PLL lock status (0x247[1]==1 is locked)
+SPIRead	287	// Check TX RF PLL lock status (0x287[1]==1 is locked)
+//************************************************************
+// Program Mixer GM Sub-table
+//************************************************************
+SPIWrite	13F,02	// Start Clock
+SPIWrite	138,0F	// Addr Table Index
+SPIWrite	139,78	// Gain
+SPIWrite	13A,00	// Bias
+SPIWrite	13B,00	// GM
+SPIWrite	13F,06	// Write Words
+SPIWrite	13C,00	// Delay for 3 ADCCLK/16 clock cycles (Dummy Write)
+SPIWrite	13C,00	// Delay ~1us (Dummy Write)
+SPIWrite	138,0E	// Addr Table Index
+SPIWrite	139,74	// Gain
+SPIWrite	13A,00	// Bias
+SPIWrite	13B,0D	// GM
+SPIWrite	13F,06	// Write Words
+SPIWrite	13C,00	// Delay for 3 ADCCLK/16 clock cycles (Dummy Write)
+SPIWrite	13C,00	// Delay ~1us (Dummy Write)
+SPIWrite	138,0D	// Addr Table Index
+SPIWrite	139,70	// Gain
+SPIWrite	13A,00	// Bias
+SPIWrite	13B,15	// GM
+SPIWrite	13F,06	// Write Words
+SPIWrite	13C,00	// Delay for 3 ADCCLK/16 clock cycles (Dummy Write)
+SPIWrite	13C,00	// Delay ~1us (Dummy Write)
+SPIWrite	138,0C	// Addr Table Index
+SPIWrite	139,6C	// Gain
+SPIWrite	13A,00	// Bias
+SPIWrite	13B,1B	// GM
+SPIWrite	13F,06	// Write Words
+SPIWrite	13C,00	// Delay for 3 ADCCLK/16 clock cycles (Dummy Write)
+SPIWrite	13C,00	// Delay ~1us (Dummy Write)
+SPIWrite	138,0B	// Addr Table Index
+SPIWrite	139,68	// Gain
+SPIWrite	13A,00	// Bias
+SPIWrite	13B,21	// GM
+SPIWrite	13F,06	// Write Words
+SPIWrite	13C,00	// Delay for 3 ADCCLK/16 clock cycles (Dummy Write)
+SPIWrite	13C,00	// Delay ~1us (Dummy Write)
+SPIWrite	138,0A	// Addr Table Index
+SPIWrite	139,64	// Gain
+SPIWrite	13A,00	// Bias
+SPIWrite	13B,25	// GM
+SPIWrite	13F,06	// Write Words
+SPIWrite	13C,00	// Delay for 3 ADCCLK/16 clock cycles (Dummy Write)
+SPIWrite	13C,00	// Delay ~1us (Dummy Write)
+SPIWrite	138,09	// Addr Table Index
+SPIWrite	139,60	// Gain
+SPIWrite	13A,00	// Bias
+SPIWrite	13B,29	// GM
+SPIWrite	13F,06	// Write Words
+SPIWrite	13C,00	// Delay for 3 ADCCLK/16 clock cycles (Dummy Write)
+SPIWrite	13C,00	// Delay ~1us (Dummy Write)
+SPIWrite	138,08	// Addr Table Index
+SPIWrite	139,5C	// Gain
+SPIWrite	13A,00	// Bias
+SPIWrite	13B,2C	// GM
+SPIWrite	13F,06	// Write Words
+SPIWrite	13C,00	// Delay for 3 ADCCLK/16 clock cycles (Dummy Write)
+SPIWrite	13C,00	// Delay ~1us (Dummy Write)
+SPIWrite	138,07	// Addr Table Index
+SPIWrite	139,58	// Gain
+SPIWrite	13A,00	// Bias
+SPIWrite	13B,2F	// GM
+SPIWrite	13F,06	// Write Words
+SPIWrite	13C,00	// Delay for 3 ADCCLK/16 clock cycles (Dummy Write)
+SPIWrite	13C,00	// Delay ~1us (Dummy Write)
+SPIWrite	138,06	// Addr Table Index
+SPIWrite	139,54	// Gain
+SPIWrite	13A,00	// Bias
+SPIWrite	13B,31	// GM
+SPIWrite	13F,06	// Write Words
+SPIWrite	13C,00	// Delay for 3 ADCCLK/16 clock cycles (Dummy Write)
+SPIWrite	13C,00	// Delay ~1us (Dummy Write)
+SPIWrite	138,05	// Addr Table Index
+SPIWrite	139,50	// Gain
+SPIWrite	13A,00	// Bias
+SPIWrite	13B,33	// GM
+SPIWrite	13F,06	// Write Words
+SPIWrite	13C,00	// Delay for 3 ADCCLK/16 clock cycles (Dummy Write)
+SPIWrite	13C,00	// Delay ~1us (Dummy Write)
+SPIWrite	138,04	// Addr Table Index
+SPIWrite	139,4C	// Gain
+SPIWrite	13A,00	// Bias
+SPIWrite	13B,34	// GM
+SPIWrite	13F,06	// Write Words
+SPIWrite	13C,00	// Delay for 3 ADCCLK/16 clock cycles (Dummy Write)
+SPIWrite	13C,00	// Delay ~1us (Dummy Write)
+SPIWrite	138,03	// Addr Table Index
+SPIWrite	139,48	// Gain
+SPIWrite	13A,00	// Bias
+SPIWrite	13B,35	// GM
+SPIWrite	13F,06	// Write Words
+SPIWrite	13C,00	// Delay for 3 ADCCLK/16 clock cycles (Dummy Write)
+SPIWrite	13C,00	// Delay ~1us (Dummy Write)
+SPIWrite	138,02	// Addr Table Index
+SPIWrite	139,30	// Gain
+SPIWrite	13A,00	// Bias
+SPIWrite	13B,3A	// GM
+SPIWrite	13F,06	// Write Words
+SPIWrite	13C,00	// Delay for 3 ADCCLK/16 clock cycles (Dummy Write)
+SPIWrite	13C,00	// Delay ~1us (Dummy Write)
+SPIWrite	138,01	// Addr Table Index
+SPIWrite	139,18	// Gain
+SPIWrite	13A,00	// Bias
+SPIWrite	13B,3D	// GM
+SPIWrite	13F,06	// Write Words
+SPIWrite	13C,00	// Delay for 3 ADCCLK/16 clock cycles (Dummy Write)
+SPIWrite	13C,00	// Delay ~1us (Dummy Write)
+SPIWrite	138,00	// Addr Table Index
+SPIWrite	139,00	// Gain
+SPIWrite	13A,00	// Bias
+SPIWrite	13B,3E	// GM
+SPIWrite	13F,06	// Write Words
+SPIWrite	13C,00	// Delay for 3 ADCCLK/16 clock cycles (Dummy Write)
+SPIWrite	13C,00	// Delay ~1us (Dummy Write)
+SPIWrite	13F,02	// Clear Write Bit
+SPIWrite	13C,00	// Delay for 3 ADCCLK/16 clock cycles (Dummy Write)
+SPIWrite	13C,00	// Delay ~1us (Dummy Write)
+SPIWrite	13F,00	// Stop Clock
+
+//************************************************************
+// Program Rx Gain Tables with GainTable800MHz.csv
+//************************************************************
+SPIWrite	137,1A	// Start Gain Table Clock
+SPIWrite	130,00	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,00	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,01	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,00	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,02	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,00	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,03	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,01	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,04	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,02	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,05	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,03	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,06	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,04	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,07	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,05	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,08	// Gain Table Index
+SPIWrite	131,01	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,03	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,09	// Gain Table Index
+SPIWrite	131,01	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,04	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,0A	// Gain Table Index
+SPIWrite	131,01	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,05	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,0B	// Gain Table Index
+SPIWrite	131,01	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,06	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,0C	// Gain Table Index
+SPIWrite	131,01	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,07	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,0D	// Gain Table Index
+SPIWrite	131,01	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,08	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,0E	// Gain Table Index
+SPIWrite	131,01	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,09	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,0F	// Gain Table Index
+SPIWrite	131,01	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,0A	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,10	// Gain Table Index
+SPIWrite	131,01	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,0B	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,11	// Gain Table Index
+SPIWrite	131,01	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,0C	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,12	// Gain Table Index
+SPIWrite	131,01	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,0D	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,13	// Gain Table Index
+SPIWrite	131,01	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,0E	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,14	// Gain Table Index
+SPIWrite	131,02	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,09	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,15	// Gain Table Index
+SPIWrite	131,02	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,0A	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,16	// Gain Table Index
+SPIWrite	131,02	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,0B	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,17	// Gain Table Index
+SPIWrite	131,02	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,0C	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,18	// Gain Table Index
+SPIWrite	131,02	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,0D	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,19	// Gain Table Index
+SPIWrite	131,02	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,0E	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,1A	// Gain Table Index
+SPIWrite	131,02	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,0F	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,1B	// Gain Table Index
+SPIWrite	131,02	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,10	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,1C	// Gain Table Index
+SPIWrite	131,02	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,2B	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,1D	// Gain Table Index
+SPIWrite	131,02	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,2C	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,1E	// Gain Table Index
+SPIWrite	131,04	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,27	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,1F	// Gain Table Index
+SPIWrite	131,04	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,28	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,20	// Gain Table Index
+SPIWrite	131,04	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,29	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,21	// Gain Table Index
+SPIWrite	131,04	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,2A	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,22	// Gain Table Index
+SPIWrite	131,04	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,2B	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,23	// Gain Table Index
+SPIWrite	131,24	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,21	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,24	// Gain Table Index
+SPIWrite	131,24	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,22	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,25	// Gain Table Index
+SPIWrite	131,44	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,20	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,26	// Gain Table Index
+SPIWrite	131,44	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,21	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,27	// Gain Table Index
+SPIWrite	131,44	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,22	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,28	// Gain Table Index
+SPIWrite	131,44	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,23	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,29	// Gain Table Index
+SPIWrite	131,44	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,24	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,2A	// Gain Table Index
+SPIWrite	131,44	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,25	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,2B	// Gain Table Index
+SPIWrite	131,44	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,26	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,2C	// Gain Table Index
+SPIWrite	131,44	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,27	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,2D	// Gain Table Index
+SPIWrite	131,44	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,28	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,2E	// Gain Table Index
+SPIWrite	131,44	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,29	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,2F	// Gain Table Index
+SPIWrite	131,44	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,2A	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,30	// Gain Table Index
+SPIWrite	131,44	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,2B	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,31	// Gain Table Index
+SPIWrite	131,44	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,2C	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,32	// Gain Table Index
+SPIWrite	131,44	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,2D	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,33	// Gain Table Index
+SPIWrite	131,44	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,2E	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,34	// Gain Table Index
+SPIWrite	131,44	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,2F	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,35	// Gain Table Index
+SPIWrite	131,44	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,30	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,36	// Gain Table Index
+SPIWrite	131,44	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,31	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,37	// Gain Table Index
+SPIWrite	131,64	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,2E	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,38	// Gain Table Index
+SPIWrite	131,64	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,2F	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,39	// Gain Table Index
+SPIWrite	131,64	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,30	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,3A	// Gain Table Index
+SPIWrite	131,64	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,31	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,3B	// Gain Table Index
+SPIWrite	131,64	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,32	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,3C	// Gain Table Index
+SPIWrite	131,64	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,33	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,3D	// Gain Table Index
+SPIWrite	131,64	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,34	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,3E	// Gain Table Index
+SPIWrite	131,64	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,35	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,3F	// Gain Table Index
+SPIWrite	131,64	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,36	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,40	// Gain Table Index
+SPIWrite	131,64	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,37	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,41	// Gain Table Index
+SPIWrite	131,64	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,38	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,42	// Gain Table Index
+SPIWrite	131,65	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,38	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,43	// Gain Table Index
+SPIWrite	131,66	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,38	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,44	// Gain Table Index
+SPIWrite	131,67	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,38	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,45	// Gain Table Index
+SPIWrite	131,68	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,38	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,46	// Gain Table Index
+SPIWrite	131,69	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,38	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,47	// Gain Table Index
+SPIWrite	131,6A	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,38	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,48	// Gain Table Index
+SPIWrite	131,6B	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,38	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,49	// Gain Table Index
+SPIWrite	131,6C	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,38	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,4A	// Gain Table Index
+SPIWrite	131,6D	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,38	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,4B	// Gain Table Index
+SPIWrite	131,6E	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,38	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,4C	// Gain Table Index
+SPIWrite	131,6F	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,38	// TIA & LPF Word
+SPIWrite	133,20	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,4D	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,00	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,4E	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,00	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,4F	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,00	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,50	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,00	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,51	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,00	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,52	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,00	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,53	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,00	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,54	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,00	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,55	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,00	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,56	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,00	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,57	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,00	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,58	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,00	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,59	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,00	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	130,5A	// Gain Table Index
+SPIWrite	131,00	// Ext LNA, Int LNA, & Mixer Gain Word
+SPIWrite	132,00	// TIA & LPF Word
+SPIWrite	133,00	// DC Cal bit & Dig Gain Word
+SPIWrite	137,1E	// Write Words
+SPIWrite	134,00	// Dummy Write to delay 3 ADCCLK/16 cycles
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	137,1A	// Clear Write Bit
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	134,00	// Dummy Write to delay ~1us
+SPIWrite	137,00	// Stop Gain Table Clock
+//************************************************************
+// Setup Rx AGC Slow Attack/Hybrid Registers
+//************************************************************
+SPIWrite	0FA,EA	// Gain Control Mode Select
+SPIWrite	0FB,08	// Full Table/Digital Gain Select
+SPIWrite	0FC,03	// ADC Overrange Sample Size
+SPIWrite	0FD,4C	// Max Full/LMT Gain Table Index
+SPIWrite	0FE,48	// Peak Overload Wait Time
+SPIWrite	100,8F	// Max Digital Gain
+SPIWrite	101,0A	// AGC Inner High Threshold
+SPIWrite	103,08	// Large LMT Step Size
+SPIWrite	104,2F	// ADC Small Overload Threshold
+SPIWrite	105,3A	// ADC Large Overload Threshold
+SPIWrite	106,22	// ADC Overload Step Sizes
+SPIWrite	107,31	// Large LMT Overload Threshold
+SPIWrite	108,39	// Small LMT Overload Threshold
+SPIWrite	111,0A	// Settling Delay
+SPIWrite	11A,27	// Initial LMT Gain Limit
+SPIWrite	120,0C	// Prevent Inc & AGC Inner Low Thresh
+SPIWrite	121,AA	// LMT Overload Exceeded Counters
+SPIWrite	122,AA	// ADC Overload Exceeded Counters
+SPIWrite	123,11	// AGC Inner High & Low Step Sizes
+SPIWrite	124,F5	// Gain Update Counter<7:0>
+SPIWrite	125,3B	// Gain Update Counter<15:8>
+SPIWrite	128,03	// Digital Sat Exceeded Counter
+SPIWrite	129,56	// AGC Outer High & Low Thresholds
+SPIWrite	12A,22	// AGC Outer High & Low Step Sizes
+//************************************************************
+// RX Baseband Filter Tuning (Real BW: 1.152000 MHz) 3dB Filter
+// Corner @ 1.612800 MHz)
+//************************************************************
+SPIWrite	1FB,01	// RX Freq Corner (MHz)
+SPIWrite	1FC,13	// RX Freq Corner (Khz)
+SPIWrite	1F8,51	// Rx BBF Tune Divider[7:0]
+SPIWrite	1F9,1E	// RX BBF Tune Divider[8]
+
+SPIWrite	1D5,3F	// Set Rx Mix LO CM
+SPIWrite	1C0,03	// Set GM common mode
+SPIWrite	1E2,02	// Enable Rx1 Filter Tuner 
+SPIWrite	1E3,02	// Enable Rx2 Filter Tuner 
+SPIWrite	016,80	// Start RX Filter Tune
+WAIT_CALDONE	RXFILTER,2000	// Wait for RX filter to tune, Max Cal Time: 41.885 us (Done when 0x016[7]==0)
+SPIWrite	1E2,03	// Disable Rx Filter Tuner (Rx1)
+SPIWrite	1E3,03	// Disable Rx Filter Tuner (Rx2)
+//************************************************************
+// TX Baseband Filter Tuning (Real BW: 1.152000 MHz) 3dB Filter
+// Corner @ 1.843200 MHz)
+//************************************************************
+SPIWrite	0D6,47	// TX BBF Tune Divier[7:0]
+SPIWrite	0D7,1E	// TX BBF Tune Divider[8]
+
+SPIWrite	0CA,22	// Enable Tx Filter Tuner
+SPIWrite	016,40	// Start Tx Filter Tune
+WAIT_CALDONE	TXFILTER,2000	// Wait for TX filter to tune, Max Cal Time: 21.367 us (Done when 0x016[6]==0)
+SPIWrite	0CA,26	// Disable Tx Filter Tuner (Both Channels)
+//************************************************************
+// RX TIA Setup:  Setup values scale based on RxBBF calibration
+// results.  See information in Calibration Guide. 
+//************************************************************
+SPIRead	1EB	// Read RXBBF C3(MSB)
+SPIRead	1EC	// Read RXBBF C3(LSB)
+SPIRead	1E6	// Read RXBBF R2346
+SPIWrite	1DB,E0	// Set TIA selcc[2:0]
+SPIWrite	1DD,1A	// Set RX TIA1 C MSB[6:0]
+SPIWrite	1DF,1A	// Set RX TIA2 C MSB[6:0]
+SPIWrite	1DC,40	// Set RX TIA1 C LSB[5:0]
+SPIWrite	1DE,40	// Set RX TIA2 C LSB[5:0]
+
+//************************************************************
+// TX Secondary Filter Calibration Setup:  Real Bandwidth
+// 1.152000MHz, 3dB Corner @ 5.760000MHz
+//************************************************************
+SPIWrite	0D2,39	// TX Secondary Filter PDF Cap cal[5:0]
+SPIWrite	0D1,03	// TX Secondary Filter PDF Res cal[3:0]
+SPIWrite	0D0,59	// Pdampbias 
+
+//************************************************************
+// ADC Setup:  Tune ADC Performance based on RX analog filter tune
+// corner.  Real Bandwidth: 1.147585 MHz, ADC Clock Frequency:
+// 36.864000 MHz.  The values in registers 0x200 - 0x227 need to be
+// calculated using the equations in the Calibration Guide.
+//************************************************************
+SPIRead	1EB	// Read RxBBF C3 MSB after calibration
+SPIRead	1EC	// Read RxBBF C3 LSB after calibration
+SPIRead	1E6	// Read RxBBF R3 after calibration
+
+SPIWrite	200,00
+SPIWrite	201,00
+SPIWrite	202,00
+SPIWrite	203,24
+SPIWrite	204,24
+SPIWrite	205,00
+SPIWrite	206,00
+SPIWrite	207,1C
+SPIWrite	208,DB
+SPIWrite	209,15
+SPIWrite	20A,1B
+SPIWrite	20B,DC
+SPIWrite	20C,1C
+SPIWrite	20D,D9
+SPIWrite	20E,15
+SPIWrite	20F,1D
+SPIWrite	210,1E
+SPIWrite	211,1D
+SPIWrite	212,1A
+SPIWrite	213,1B
+SPIWrite	214,1A
+SPIWrite	215,1B
+SPIWrite	216,1C
+SPIWrite	217,1B
+SPIWrite	218,2E
+SPIWrite	219,83
+SPIWrite	21A,08
+SPIWrite	21B,07
+SPIWrite	21C,83
+SPIWrite	21D,08
+SPIWrite	21E,07
+SPIWrite	21F,83
+SPIWrite	220,08
+SPIWrite	221,0F
+SPIWrite	222,0F
+SPIWrite	223,40
+SPIWrite	224,40
+SPIWrite	225,2C
+SPIWrite	226,00
+SPIWrite	227,00
+//************************************************************
+// Tx Quadrature Calibration Settings
+//************************************************************
+SPIRead	0A3	// Masked Read:  Read lower 6 bits, overwrite [7:6] below
+SPIWrite	0A0,3A	// Set TxQuadcal NCO frequency
+SPIWrite	0A3,40	// Set TxQuadcal NCO frequency (Only update bits [7:6])
+SPIWrite	0A1,7B	// Set TxQuadcal M[1:0]
+SPIWrite	0A9,FF	// Set Tx Quad Cal Count
+SPIWrite	0A2,7F	// Set Tx Quad Cal Kexp
+SPIWrite	0A5,01	// Set Tx Quad Cal Magnitude Threshhold
+SPIWrite	0A6,01	// Set Tx Quad Cal Magnitude Threshhold
+SPIWrite	0AA,25	// Set Tx Quad Cal Gain Table index
+SPIWrite	0A4,F0	// Set Tx Quad Cal Setting Count
+SPIWrite	0AE,00	// Set Tx Quad Cal LPF Gain index incase Split table mode used
+
+SPIWrite	193,3F	// BBDC Cal setting
+SPIWrite	190,0F	// Set BBDC tracking shift M value, only applies when BB DC tracking enabled
+SPIWrite	194,01	// BBDC Cal setting
+SPIWrite	016,01	// Start BBDC offset cal
+WAIT_CALDONE	BBDC,2000	// BBDC Max Cal Time: 40400.000 us. Cal done when 0x016[0]==0
+SPIWrite	185,20	// Set RF DC offset Wait Count
+SPIWrite	186,32	// Set RF DC Offset Count[7:0]
+SPIWrite	187,24	// Settings for RF DC cal
+SPIWrite	18B,83	// Settings for RF DC cal
+SPIWrite	188,05	// Settings for RF DC cal
+SPIWrite	189,30	// Settings for RF DC cal
+SPIWrite	016,02	// RFDC Max Cal Time: 184086.000 us
+WAIT_CALDONE	RFDC,2000	// Wait for cal to complete (Done when 0x016[1]==0)
+SPIWrite	016,10	// TXQuad Max Cal Time: 0.000 us
+WAIT_CALDONE	TXQUAD,2000	// Wait for cal to complete (Done when 0x016[4]==0)
+SPIWrite	168,03	// Set RX Quadcal Tone Level
+SPIWrite	16E,25	// Set Rx Gain index to use during RX Quadcal
+SPIWrite	16A,75	// Set Kexp Phase
+SPIWrite	16B,15	// Set Kexp Amplitude
+SPIWrite	169,CF
+SPIWrite	18B,AD
+SPIWrite	012,10	// Cals done, Set PPORT Config
+SPIWrite	013,01	// Set ENSM FDD/TDD bit
+SPIWrite	015,04	// Set Dual Synth Mode, FDD External Control bits properly
+//************************************************************
+// Set Tx Attenuation: Tx1: 10.00 dB,  Tx2: 10.00 dB 
+//************************************************************
+SPIWrite	073,28
+SPIWrite	074,00
+SPIWrite	075,28
+SPIWrite	076,00
+//************************************************************
+// Setup RSSI and Power Measurement Duration Registers
+//************************************************************
+SPIWrite	150,0B	// RSSI Measurement Duration 0, 1
+SPIWrite	151,00	// RSSI Measurement Duration 2, 3
+SPIWrite	152,FF	// RSSI Weighted Multiplier 0
+SPIWrite	153,00	// RSSI Weighted Multiplier 1
+SPIWrite	154,00	// RSSI Weighted Multiplier 2
+SPIWrite	155,00	// RSSI Weighted Multiplier 3
+SPIWrite	156,00	// RSSI Delay
+SPIWrite	157,00	// RSSI Wait
+SPIWrite	158,0D	// RSSI Mode Select
+SPIWrite	15C,69	// Power Measurement Duration
+
+SPIWrite	002,1E	// Set # transmitters enabled
+SPIWrite	003,5E	// Set # receivers enabled

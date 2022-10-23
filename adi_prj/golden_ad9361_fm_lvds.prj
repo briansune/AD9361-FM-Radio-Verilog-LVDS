@@ -1,0 +1,140 @@
+[CommonSettings]
+Device = 1    
+Device Rev = 2    
+SW Version = "Version 2.1.1"
+RX Frequency = "93.500000"
+RX Capture Time = "0.001000"
+TX Frequency = "800.000000"
+TX1 Attenuation = "10.000000"
+TX2 Attenuation = "10.000000"
+TX1 Data File = ""
+TX2 Data File = ""
+
+[RF Settings]
+Input Structure = 1    
+Project Profile = 0    
+Reg 004 = 3    
+
+[Clock/Filter Settings]
+BBPLL = "1179.648000"
+Reg002 = 30    
+Reg065 = 224    
+Reg003 = 94    
+Reg0F6 = 2    
+TxFIR = "/C/Program Files (x86)/Analog Devices/AD9361R2 Evaluation Software/DigitalFilters/128tapFilter.ftr"
+RxFIR = "/C/Program Files (x86)/Analog Devices/AD9361R2 Evaluation Software/DigitalFilters/128tapFilter.ftr"
+Tx Rate(MSPS) = "2.304000"
+RF Bandwidth = "2.304000"
+Reg00A = 5    
+Reg2AA = 4    
+Reg2AB = 7    
+Reg2AC = 255    
+Rx Rate(MSPS) = "2.304000"
+REFCLK_In = "40.000000"
+Reg0F5 = 224    
+CustomTxFIR = FALSE    
+CustomRxFIR = FALSE    
+REFCLK Path = 1    
+Reg045 = 0    
+DCXO Coarse[5:0] = 8    
+DCXO Fine[12:0] = 4096    
+
+[Digital Interface Settings]
+reg010 = 201    
+reg011 = 32    
+reg012 = 16    
+reg006 (Delay Cell) = 4    
+reg007 = 4    
+reg03C LVDS = 36    
+reg03D LVDS Invert = 0    
+reg03E LVDS Invert = 0    
+Reg035 = 0    
+Reg036 = 255    
+
+[ENSM Settings]
+reg014 = 1    
+reg015 = 4    
+VCO Cal Time = 3    
+reg013 = 1    
+
+[Aux IO Settings]
+reg018 = 0    
+reg019 = 0    
+reg01A = 0    
+reg01B = 0    
+reg023 = 255    
+reg026 = 0    
+reg030 = 0    
+reg031 = 0    
+reg032 = 0    
+reg033 = 0    
+reg01C = 16    
+reg01D = 1    
+reg020 = 0    
+reg027 = 0    
+reg028 = 0    
+reg029 = 0    
+reg02A = 0    
+reg02B = 0    
+reg02C = 0    
+reg02D = 0    
+reg02E = 0    
+reg02F = 0    
+reg00B = 0    
+reg00C = 0    
+reg00D = 3    
+reg00F = 4    
+
+[Rx Gain Control Settings]
+reg022 = 10    
+reg0FA = 234    
+reg0FB = 8    
+reg0FC = 3    
+reg0FD = 76    
+reg0FE = 72    
+reg100 = 143    
+reg101 = 10    
+reg103 = 8    
+reg104 = 47    
+reg105 = 58    
+reg106 = 34    
+reg107 = 49    
+reg108 = 57    
+reg109 = 76    
+reg10A = 88    
+reg10B = 0    
+reg10C = 76    
+reg10D = 24    
+reg10E = 0    
+reg110 = 1    
+reg111 = 10    
+reg112 = 82    
+reg113 = 76    
+reg114 = 48    
+reg116 = 101    
+reg117 = 8    
+reg119 = 8    
+reg11A = 39    
+reg11B = 10    
+reg120 = 12    
+reg121 = 170    
+reg122 = 170    
+reg123 = 17    
+reg124 = 245    
+reg125 = 59    
+reg128 = 3    
+reg129 = 86    
+reg12A = 34    
+reg150 = 11    
+reg151 = 0    
+reg152 = 255    
+reg153 = 0    
+reg154 = 0    
+reg155 = 0    
+reg156 = 0    
+reg157 = 0    
+reg158 = 13    
+reg15C = 105    
+reg081 = 0    
+reg115 = 0    
+reg118 = 5    
