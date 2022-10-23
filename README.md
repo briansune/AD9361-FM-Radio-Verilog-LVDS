@@ -15,9 +15,17 @@ Well FM antenna is really long as lightsaber but put your lightsaber back and br
 
 | Res    | Usage | Total  | %          |
 |--------|-------|--------|------------|
-
+| LUT    | 2861  | 277400 | 1.0313627  |
+| LUTRAM | 149   | 108200 | 0.13770795 |
+| FF     | 2765  | 554800 | 0.4983778  |
+| DSP    | 28    | 2020   | 1.3861386  |
+| IO     | 67    | 362    | 18.508287  |
+| BUFG   | 3     | 32     | 9.375      |
+| MMCM   | 1     | 8      | 12.5       |
 
 # Demodulation Flow
+
+## !! LVDS input clock is doubled !!
 
 ![image](https://user-images.githubusercontent.com/29487339/195495382-54e40ec4-d6ff-439c-8a40-add5b0d469f0.png)
 
