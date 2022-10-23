@@ -1,0 +1,3 @@
+[submodule "AD9361-FM-Radio-Verilog-CMOS"]
+	path = AD9361-FM-Radio-Verilog-CMOS
+	url = https://github.com/briansune/AD9361-FM-Radio-Verilog-CMOS.git
